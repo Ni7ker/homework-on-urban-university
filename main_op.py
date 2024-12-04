@@ -1,14 +1,19 @@
-def generate_password(n):
+def generate_password_with_pairs(n):
     result = ""  # Хранит итоговый пароль
+    pairs = [] # Хранит список пар
     for a in range(1, n):  # Проходим по всем числам от 1 до n-1
-        for b in range(a + 1, n + 1):  # b должно быть больше a
-            if a + b == n:  # Проверяем, что сумма пары равна n
+        for b in range(a + 1, n):  # b должно быть больше a
+            pair_sum = a + b # Сумма пары
+            if n % pair_sum == 0: # Проверяем, что n кратна сумме пары
                 result += f"{a}{b}"  # Добавляем пару к паролю
-    return result
+                pairs.append((a, b)) # Сохраняем пару в список
+    return result, pairs
 
 # Пример использования
 n = int(input("Введите число от 3 до 20: "))
 if 3 <= n <= 20:
-    print(f"Пароль для числа {n}: {generate_password(n)}")
+    password, pairs = generate_password_with_pairs(n)
+    print(f"Пароль для числа {n}: {password}")
+    print(f"Пары чисел для числа {n}: {pairs}")
 else:
     print("Число должно быть в диапазоне от 3 до 20.")
